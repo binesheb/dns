@@ -40,7 +40,8 @@
 #sdtv_mode=2
 
 #uncomment to overclock the arm. 700 MHz is the default.
-#arm_freq=800
+
+
 
 # Uncomment some or all of these to enable the optional hardware interfaces
 #dtparam=i2c_arm=on
@@ -65,6 +66,5 @@ max_framebuffers=2
 #dtoverlay=vc4-fkms-v3d
 avoid_warnings=2
 max_usb_current=1
-
-
-init=/boot/start.sh
+program_usb_boot_mode=1
+arm_freq=1200
