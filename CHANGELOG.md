@@ -10,6 +10,9 @@ The project uses Semantic Versioning once tagged releases are established.
 - Corrected the Wi-Fi provisioning UI so its JavaScript, favicon, and logo use relative paths and continue to load when the UI is hosted behind a non-root route or copied into a packaged appliance.
 - Added missing form `id` attributes and basic accessibility/autocomplete metadata without changing the provisioning backend contract.
 
+### Added
+- Added GitHub Actions validation for local assets referenced by the Wi-Fi provisioning UI, preventing broken packaged or non-root deployments from being merged unnoticed.
+
 ## [0.1.1] - 2026-08-20
 
 ### Changed
