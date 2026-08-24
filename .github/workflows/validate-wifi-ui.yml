@@ -1,0 +1,42 @@
+name: Validate Wi-Fi provisioning UI
+
+on:
+  push:
+    paths:
+      - "wifi-connect/ui/**"
+      - ".github/workflows/validate-wifi-ui.yml"
+  pull_request:
+    paths:
+      - "wifi-connect/ui/**"
+      - ".github/workflows/validate-wifi-ui.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate referenced local assets
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          root = Path("wifi-connect/ui")
+          html = (root / "index.html").read_text(encoding="utf-8")
+          refs = re.findall(r'(?:src|href)=["\']([^"\']+)["\']', html)
+          missing = []
+          for ref in refs:
+              if ref.startswith(("http://", "https://", "#", "data:")):
+                  continue
+              path = root / ref.lstrip("/")
+              if not path.is_file():
+                  missing.append(f"{ref} -> {path}")
+          if missing:
+              raise SystemExit("Missing local assets:\n" + "\n".join(missing))
+          print(f"Validated {len(refs)} referenced assets.")
+          PY
