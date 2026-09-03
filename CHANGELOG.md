@@ -8,6 +8,7 @@ The project uses Semantic Versioning once tagged releases are established.
 
 ### Fixed
 - Corrected the Wi-Fi provisioning UI so its JavaScript, favicon, and logo use relative paths and continue to load when the UI is hosted behind a non-root route or copied into a packaged appliance.
+- Changed the Wi-Fi provisioning form and AJAX requests to use relative API paths, so the UI also works when mounted below the web server root.
 - Added missing form `id` attributes and basic accessibility/autocomplete metadata without changing the provisioning backend contract.
 
 ### Added
