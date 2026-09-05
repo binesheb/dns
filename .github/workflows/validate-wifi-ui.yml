@@ -30,16 +30,30 @@ jobs:
           import re
 
           root = Path("wifi-connect/ui")
-          html = (root / "index.html").read_text(encoding="utf-8")
-          refs = re.findall(r'(?:src|href)=["\']([^"\']+)["\']', html)
           missing = []
-          for ref in refs:
+
+          html = (root / "index.html").read_text(encoding="utf-8")
+          html_refs = re.findall(r'(?:src|href)=["\']([^"\']+)["\']', html)
+          for ref in html_refs:
               if ref.startswith(("http://", "https://", "#", "data:")):
                   continue
               path = root / ref.lstrip("/")
               if not path.is_file():
                   missing.append(f"{ref} -> {path}")
+
+          css_files = list((root / "css").rglob("*.css"))
+          css_refs = []
+          for css_file in css_files:
+              css = css_file.read_text(encoding="utf-8")
+              for ref in re.findall(r"url\\(\\s*[\"']?([^\"'\\)]+)[\"']?\\s*\\)", css):
+                  if ref.startswith(("http://", "https://", "data:", "#")):
+                      continue
+                  css_refs.append((css_file, ref))
+                  path = (css_file.parent / ref).resolve()
+                  if not path.is_file():
+                      missing.append(f"{css_file}: {ref} -> {path}")
+
           if missing:
               raise SystemExit("Missing local assets:\n" + "\n".join(missing))
-          print(f"Validated {len(refs)} referenced assets.")
+          print(f"Validated {len(html_refs)} HTML references and {len(css_refs)} CSS assets.")
           PY
