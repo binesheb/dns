@@ -45,7 +45,7 @@ jobs:
           css_refs = []
           for css_file in css_files:
               css = css_file.read_text(encoding="utf-8")
-              for ref in re.findall(r"url\\(\\s*[\"']?([^\"'\\)]+)[\"']?\\s*\\)", css):
+              for ref in re.findall(r"url\(\s*[\"']?([^\"'\)]+)[\"']?\s*\)", css):
                   if ref.startswith(("http://", "https://", "data:", "#")):
                       continue
                   css_refs.append((css_file, ref))
