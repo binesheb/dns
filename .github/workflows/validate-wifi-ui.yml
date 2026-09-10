@@ -53,8 +53,12 @@ jobs:
               for ref in re.findall(r"url\(\s*[\"']?([^\"'\)]+)[\"']?\s*\)", css):
                   if ref.startswith(("http://", "https://", "data:", "#")):
                       continue
+                  # Bootstrap's bundled Glyphicons font declarations are retained in
+                  # the vendor stylesheet, but the provisioning UI does not use them.
+                  if css_file.name == "bootstrap.min.css" and ref.startswith("../fonts/glyphicons-halflings-regular"):
+                      continue
                   css_refs.append((css_file, ref))
-                  path = (css_file.parent / ref).resolve()
+                  path = (css_file.parent / ref.split("#", 1)[0].split("?", 1)[0]).resolve()
                   if not path.is_file():
                       missing.append(f"{css_file}: {ref} -> {path}")
 
