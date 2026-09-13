@@ -52,10 +52,14 @@ $(function(){
 	});
 
 	$('#connect-form').submit(function(ev){
+		var connectButton = $(this).find('button[type="submit"]');
+		connectButton.prop('disabled', true);
+
 		$.post('connect', $('#connect-form').serialize(), function(data){
 			$('.before-submit').hide();
 			$('#submit-message').removeClass('hidden');
 		}).fail(function(){
+			connectButton.prop('disabled', false);
 			$('#submit-message h3').text('Unable to apply changes');
 			$('#submit-message p').text('The Wi-Fi settings could not be applied. Please return to the form and try again.');
 			$('.before-submit').show();
