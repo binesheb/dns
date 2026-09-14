@@ -31,7 +31,9 @@ $(function(){
 				return;
 			}
 
-			if(!Array.isArray(networks)) {
+			if(!Array.isArray(networks) || networks.some(function(network) {
+				return !network || typeof network.ssid !== 'string';
+			})) {
 				showNetworkError('The device returned an invalid network list. Please reboot the device and try again.');
 				return;
 			}
