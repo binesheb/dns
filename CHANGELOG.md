@@ -7,6 +7,8 @@ The project uses Semantic Versioning once tagged releases are established.
 ## [Unreleased]
 
 ### Fixed
+- Prevented duplicate Wi-Fi provisioning submissions while a previous request is still in progress.
+- Rejected malformed Wi-Fi network entries before they reach the provisioning UI, avoiding invalid selection/state errors.
 - Made Wi-Fi provisioning failures visible instead of silently leaving the form in a failed state when network discovery or connection requests fail.
 - Guarded Wi-Fi network-list parsing against malformed or unexpected API responses so a broken response does not crash the provisioning UI.
 - Corrected the Wi-Fi provisioning UI so its JavaScript, favicon, and logo use relative paths and continue to load when the UI is hosted behind a non-root route or copied into a packaged appliance.
