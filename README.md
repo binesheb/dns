@@ -7,6 +7,7 @@ A small Raspberry Pi project for turning dedicated hardware into a local DNS sin
 - Raspberry Pi-focused
 - Historical setup assets from 2021
 - Automated validation currently covers the Wi-Fi provisioning UI; there is no automated deployment or release pipeline yet
+- The validation workflow runs when the Wi-Fi UI or its workflow changes; unrelated documentation-only commits do not trigger it
 - No open issues at the time of this maintenance update
 - GitHub contains an old unpublished draft prerelease with 2021 installer assets; it is not a supported release for current deployments
 
